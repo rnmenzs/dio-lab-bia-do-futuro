@@ -1,26 +1,22 @@
-# Base de Conhecimento
+# Base de Conhecimento — InvestIA
 
 ## Dados Utilizados
 
-Descreva se usou os arquivos da pasta `data`, por exemplo:
-
 | Arquivo | Formato | Utilização no Agente |
 |---------|---------|---------------------|
-| `historico_atendimento.csv` | CSV | Contextualizar interações anteriores |
-| `perfil_investidor.json` | JSON | Personalizar recomendações |
-| `produtos_financeiros.json` | JSON | Sugerir produtos adequados ao perfil |
-| `transacoes.csv` | CSV | Analisar padrão de gastos do cliente |
-
-> [!TIP]
-> **Quer um dataset mais robusto?** Você pode utilizar datasets públicos do [Hugging Face](https://huggingface.co/datasets) relacionados a finanças, desde que sejam adequados ao contexto do desafio.
+| `perfil_investidor.json` | JSON | Personalização: perfil de risco, metas e situação da reserva entram no system prompt |
+| `produtos_financeiros.json` | JSON | Catálogo: única fonte de produtos que o agente pode sugerir |
+| `transacoes.csv` | CSV | Fora deste protótipo (decisão de escopo — ver `docs/01`) |
+| `historico_atendimento.csv` | CSV | Fora deste protótipo (decisão de escopo — ver `docs/01`) |
 
 ---
 
 ## Adaptações nos Dados
 
-> Você modificou ou expandiu os dados mockados? Descreva aqui.
+Duas adaptações, ambas para garantir que toda resposta do agente seja rastreável aos dados:
 
-[Sua descrição aqui]
+1. **Campo `liquidez` nos 5 produtos** (`produtos_financeiros.json`): liquidez é o atributo decisivo para recomendar produto de reserva de emergência, e o catálogo original não trazia essa informação — sem ela, o agente teria que responder "não sei" a qualquer pergunta sobre resgate (ou inventar a resposta).
+2. **Prazos das metas atualizados** (`perfil_investidor.json`): os prazos originais (jun/2026 e dez/2027) já estavam vencidos ou apertados em relação à data atual; foram movidos para jun/2027 e dez/2028 para o cenário da demonstração fazer sentido.
 
 ---
 
@@ -29,27 +25,40 @@ Descreva se usou os arquivos da pasta `data`, por exemplo:
 ### Como os dados são carregados?
 > Descreva como seu agente acessa a base de conhecimento.
 
-[ex: Os JSON/CSV são carregados no início da sessão e incluídos no contexto do prompt]
+Uma única vez, na abertura do app: o código (`src/app.py`) lê os dois JSONs, formata como texto e monta o system prompt. Não há consulta à base em tempo de execução.
 
 ### Como os dados são usados no prompt?
 > Os dados vão no system prompt? São consultados dinamicamente?
 
-[Sua descrição aqui]
+Vão inteiros no system prompt. Com 1 perfil e 5 produtos, a base cabe folgada no contexto do modelo — por isso não usamos RAG/banco vetorial, que só se justifica quando a base é grande demais para o contexto.
 
 ---
 
 ## Exemplo de Contexto Montado
 
-> Mostre um exemplo de como os dados são formatados para o agente.
+> Como os dois JSONs viram texto dentro do system prompt:
 
 ```
-Dados do Cliente:
-- Nome: João Silva
-- Perfil: Moderado
-- Saldo disponível: R$ 5.000
+PERFIL DO CLIENTE
+- Nome: João Silva, 32 anos, analista de sistemas
+- Renda mensal: R$ 5.000,00
+- Perfil de investidor: moderado
+- Aceita risco: não
+- Patrimônio total: R$ 15.000,00
+- Reserva de emergência atual: R$ 10.000,00
+- Metas:
+  1. Completar reserva de emergência — R$ 15.000,00 até jun/2027
+  2. Entrada do apartamento — R$ 50.000,00 até dez/2028
 
-Últimas transações:
-- 01/11: Supermercado - R$ 450
-- 03/11: Streaming - R$ 55
-...
+CATÁLOGO DE PRODUTOS (única fonte permitida para sugestões)
+1. Tesouro Selic — renda fixa, risco baixo, 100% da Selic, aporte mínimo R$ 30,
+   resgate em 1 dia útil. Indicado para: reserva de emergência e iniciantes.
+2. CDB Liquidez Diária — renda fixa, risco baixo, 102% do CDI, aporte mínimo R$ 100,
+   resgate no mesmo dia. Indicado para: quem busca segurança com rendimento diário.
+3. LCI/LCA — renda fixa, risco baixo, 95% do CDI, aporte mínimo R$ 1.000,
+   resgate somente após carência de 90 dias. Indicado para: quem pode esperar 90 dias (isento de IR).
+4. Fundo Multimercado — fundo, risco médio, CDI + 2%, aporte mínimo R$ 500,
+   resgate em 5 dias úteis. Indicado para: perfil moderado que busca diversificação.
+5. Fundo de Ações — fundo, risco alto, rentabilidade variável, aporte mínimo R$ 100,
+   resgate em 30 dias. Indicado para: perfil arrojado com foco no longo prazo.
 ```
