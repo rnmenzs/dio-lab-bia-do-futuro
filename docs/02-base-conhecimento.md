@@ -15,7 +15,7 @@
 
 Duas adaptações, ambas para garantir que toda resposta do agente seja rastreável aos dados:
 
-1. **Campo `liquidez` nos 5 produtos** (`produtos_financeiros.json`): liquidez é o atributo decisivo para recomendar produto de reserva de emergência, e o catálogo original não trazia essa informação — sem ela, o agente teria que responder "não sei" a qualquer pergunta sobre resgate (ou inventar a resposta).
+1. **Campo `liquidez` nos 5 produtos** (`produtos_financeiros.json`): liquidez é o atributo decisivo para recomendar produto de reserva de emergência, e a versão do catálogo distribuída no fork não trazia essa informação — sem ela, o agente teria que responder "não sei" a qualquer pergunta sobre resgate (ou inventar a resposta). Uma versão antiga do repositório base chegou a ter esse campo em códigos de mercado ("D+1"); aqui ele foi reintroduzido em linguagem natural ("resgate em 1 dia útil"), mais adequada ao público iniciante.
 2. **Prazos das metas atualizados** (`perfil_investidor.json`): os prazos originais (jun/2026 e dez/2027) já estavam vencidos ou apertados em relação à data atual; foram movidos para jun/2027 e dez/2028 para o cenário da demonstração fazer sentido.
 
 ---
@@ -25,7 +25,7 @@ Duas adaptações, ambas para garantir que toda resposta do agente seja rastreá
 ### Como os dados são carregados?
 > Descreva como seu agente acessa a base de conhecimento.
 
-Uma única vez, na abertura do app: o código (`src/app.py`) lê os dois JSONs, formata como texto e monta o system prompt. Não há consulta à base em tempo de execução.
+Uma única vez, na abertura do app: o código da Etapa 4 (`src/app.py`) lerá os dois JSONs, formatará como texto e montará o system prompt. Não há recuperação dinâmica de contexto (sem RAG) — a camada de validação apenas reutiliza, a cada resposta, os dados já carregados em memória.
 
 ### Como os dados são usados no prompt?
 > Os dados vão no system prompt? São consultados dinamicamente?
@@ -44,6 +44,7 @@ PERFIL DO CLIENTE
 - Renda mensal: R$ 5.000,00
 - Perfil de investidor: moderado
 - Aceita risco: não
+- Objetivo principal: construir reserva de emergência
 - Patrimônio total: R$ 15.000,00
 - Reserva de emergência atual: R$ 10.000,00
 - Metas:
