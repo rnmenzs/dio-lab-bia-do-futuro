@@ -36,30 +36,26 @@ Vão inteiros no system prompt. Com 1 perfil e 5 produtos, a base cabe folgada n
 
 ## Exemplo de Contexto Montado
 
-> Como os dois JSONs viram texto dentro do system prompt:
+> Como os dois JSONs viram texto dentro do system prompt — este bloco é a
+> saída real da função `montar_contexto` do `src/app.py`:
 
 ```
 PERFIL DO CLIENTE
-- Nome: João Silva, 32 anos, analista de sistemas
+- Nome: João Silva, 32 anos, Analista de Sistemas
 - Renda mensal: R$ 5.000,00
 - Perfil de investidor: moderado
 - Aceita risco: não
-- Objetivo principal: construir reserva de emergência
+- Objetivo principal: Construir reserva de emergência
 - Patrimônio total: R$ 15.000,00
 - Reserva de emergência atual: R$ 10.000,00
 - Metas:
-  1. Completar reserva de emergência — R$ 15.000,00 até jun/2027
-  2. Entrada do apartamento — R$ 50.000,00 até dez/2028
+  1. Completar reserva de emergência — R$ 15.000,00 até junho de 2027
+  2. Entrada do apartamento — R$ 50.000,00 até dezembro de 2028
 
 CATÁLOGO DE PRODUTOS (única fonte permitida para sugestões)
-1. Tesouro Selic — renda fixa, risco baixo, 100% da Selic, aporte mínimo R$ 30,
-   resgate em 1 dia útil. Indicado para: reserva de emergência e iniciantes.
-2. CDB Liquidez Diária — renda fixa, risco baixo, 102% do CDI, aporte mínimo R$ 100,
-   resgate no mesmo dia. Indicado para: quem busca segurança com rendimento diário.
-3. LCI/LCA — renda fixa, risco baixo, 95% do CDI, aporte mínimo R$ 1.000,
-   resgate somente após carência de 90 dias. Indicado para: quem pode esperar 90 dias (isento de IR).
-4. Fundo Multimercado — fundo, risco médio, CDI + 2%, aporte mínimo R$ 500,
-   resgate em 5 dias úteis. Indicado para: perfil moderado que busca diversificação.
-5. Fundo de Ações — fundo, risco alto, rentabilidade variável, aporte mínimo R$ 100,
-   resgate em 30 dias. Indicado para: perfil arrojado com foco no longo prazo.
+1. Tesouro Selic — renda fixa, risco baixo, 100% da Selic, aporte mínimo R$ 30,00, resgate em 1 dia útil. Indicado para: Reserva de emergência e iniciantes.
+2. CDB Liquidez Diária — renda fixa, risco baixo, 102% do CDI, aporte mínimo R$ 100,00, resgate no mesmo dia. Indicado para: Quem busca segurança com rendimento diário.
+3. LCI/LCA — renda fixa, risco baixo, 95% do CDI, aporte mínimo R$ 1.000,00, resgate somente após carência de 90 dias. Indicado para: Quem pode esperar 90 dias (isento de IR).
+4. Fundo Multimercado — fundo, risco médio, CDI + 2%, aporte mínimo R$ 500,00, resgate em 5 dias úteis. Indicado para: Perfil moderado que busca diversificação.
+5. Fundo de Ações — fundo, risco alto, rentabilidade variável, aporte mínimo R$ 100,00, resgate em 30 dias. Indicado para: Perfil arrojado com foco no longo prazo.
 ```

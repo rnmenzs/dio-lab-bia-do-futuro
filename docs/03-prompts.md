@@ -175,6 +175,8 @@ a comparação entre as opções?
 > Ajustes feitos nos prompts e por quê.
 
 - **Alucinação plausível é a mais perigosa:** na revisão da Etapa 1, a própria documentação afirmou que o Tesouro Selic tinha "resgate a qualquer momento" — informação que não existia nos dados. A correção virou dado (campo `liquidez`, Etapa 2) e regra (nº 2).
-- **Validação por nomes tinha a lógica invertida:** procurar os 5 nomes do catálogo na resposta só detecta produtos que existem; produto inventado passaria ileso. A regra 3 (lista de proibidos) e a validação por código da Etapa 4 cobrem os dois lados.
+- **Validação por nomes tinha a lógica invertida:** procurar os 5 nomes do catálogo na resposta só detecta produtos que existem. A lista de termos proibidos cobre os produtos externos mais comuns — um nome totalmente inventado ainda pode escapar, limitação conhecida e registrada para avaliação na Etapa 5.
+- **"Risco alto" não é desaconselho:** a revisão da Etapa 4 mostrou que descritores do catálogo ("risco alto", "risco médio") aparecem até em recomendações ruins ("é risco alto, mas rende muito!"). A validação passou a exigir desaconselho de verdade ("não recomendo", "evite"...) **na mesma frase** em que o produto incompatível é citado — um alerta sobre o produto A não libera o produto B.
+- **A exceção da regra 4 precisa existir nas duas camadas:** se o cliente libera risco na conversa, o prompt permite sugerir — e a validação por código também detecta esse consentimento, senão bloquearia uma resposta legítima.
 - **A contradição do perfil virou comportamento:** em vez de o agente escolher sozinho entre "moderado" e "não aceita risco", a regra 5 o obriga a perguntar — decisão de design da Etapa 1 (postura consultiva).
 - **Edge case "recomendação sem contexto" do template não se aplica:** neste protótipo o perfil do João sempre está carregado no prompt; o caso foi substituído por dois mais relevantes ao nosso cenário (informação inexistente e produto incompatível).

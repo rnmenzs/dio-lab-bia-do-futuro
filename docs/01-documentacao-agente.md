@@ -59,7 +59,7 @@ flowchart TD
     B --> A
 ```
 
-**Fluxo:** ao abrir o app, os dois JSONs de `data/` são carregados no system prompt e o agente envia a primeira mensagem sozinho, com base nas metas do cliente (comportamento proativo). A cada resposta do LLM, o código valida: todo produto citado deve ser um dos 5 do catálogo (uma lista de termos proibidos — poupança, COE, criptomoedas etc. — bloqueia produtos externos); e produto do catálogo incompatível com o perfil só é aprovado se a resposta o estiver explicitamente desaconselhando (com alerta de risco) — recomendação sem alerta é descartada. Resposta reprovada é descartada, e o agente responde com a mensagem de limitação.
+**Fluxo:** ao abrir o app, os dois JSONs de `data/` são carregados no system prompt e o agente envia a primeira mensagem sozinho, com base nas metas do cliente (comportamento proativo). A cada resposta do LLM, o código valida: uma lista de termos proibidos (poupança, COE, criptomoedas etc.) bloqueia produtos externos conhecidos; e produto do catálogo incompatível com o perfil só é aprovado se estiver sendo desaconselhado **na mesma frase** em que é citado — recomendação sem alerta é descartada (a menos que o cliente tenha liberado risco explicitamente na conversa). Resposta reprovada vira a mensagem de limitação.
 
 ### Componentes
 
@@ -68,7 +68,7 @@ flowchart TD
 | Interface | Chatbot em Streamlit (`src/app.py`, a criar na Etapa 4) |
 | LLM | Modelo local via Ollama (ex: `llama3.1:8b`) |
 | Base de Conhecimento | `perfil_investidor.json` + `produtos_financeiros.json`, injetados no system prompt (os CSVs de `data/` ficam fora deste protótipo) |
-| Validação | Produto citado deve ser do catálogo (termos proibidos descartam); produto incompatível com o perfil só passa se estiver sendo desaconselhado com alerta de risco |
+| Validação | Termos proibidos (produtos externos) descartam a resposta; produto incompatível com o perfil só passa se desaconselhado na mesma frase |
 
 ---
 

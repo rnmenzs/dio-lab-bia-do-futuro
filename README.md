@@ -1,149 +1,70 @@
-# 🤖 Agente Financeiro Inteligente com IA Generativa
+# 💰 InvestIA — Consultor Virtual de Investimentos
 
-## Contexto
+Agente de IA que ajuda **investidores iniciantes** a escolher, entre os produtos
+de um catálogo, os mais adequados ao seu perfil e às suas metas — explicando o
+porquê de cada sugestão e **sem inventar informações**.
 
-Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots reativos para **agentes inteligentes e proativos**. Neste desafio, você vai idealizar e prototipar um agente financeiro que utiliza IA Generativa para:
-
-- **Antecipar necessidades** ao invés de apenas responder perguntas
-- **Personalizar** sugestões com base no contexto de cada cliente
-- **Cocriar soluções** financeiras de forma consultiva
-- **Garantir segurança** e confiabilidade nas respostas (anti-alucinação)
-
-> [!TIP]
-> Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
+Projeto desenvolvido para o Lab da DIO
+["Construa Seu Assistente Virtual Com IA"](https://github.com/digitalinnovationone/dio-lab-bia-do-futuro)
+(trilha Bradesco — Dados, Cibersegurança e GenAI).
 
 ---
 
-## O Que Você Deve Entregar
+## O problema
 
-### 1. Documentação do Agente
+Pessoa iniciante, com pouco patrimônio, não sabe qual produto financeiro combina
+com seu perfil e metas — e por isso deixa o dinheiro parado na conta ou investe
+por palpite.
 
-Defina **o que** seu agente faz e **como** ele funciona:
+## A solução
 
-- **Caso de Uso:** Qual problema financeiro ele resolve? (ex: consultoria de investimentos, planejamento de metas, alertas de gastos)
-- **Persona e Tom de Voz:** Como o agente se comporta e se comunica?
-- **Arquitetura:** Fluxo de dados e integração com a base de conhecimento
-- **Segurança:** Como evitar alucinações e garantir respostas confiáveis?
+O **InvestIA** cruza o perfil e as metas do cliente com o catálogo de produtos
+([`data/`](./data/)) e:
 
-📄 **Template:** [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md)
+1. **Antecipa** — abre a conversa apontando a meta mais urgente, antes da primeira pergunta;
+2. **Personaliza** — só sugere produtos do catálogo compatíveis com o perfil de risco, explicando o porquê;
+3. **Pergunta na dúvida** — detecta contradições no perfil do cliente e pergunta antes de recomendar.
 
----
+**Anti-alucinação em duas camadas:** regras no system prompt **+ validação por
+código** — determinística, ela descarta respostas que citem produtos fora do
+catálogo ou recomendem produto incompatível com o perfil sem desaconselhá-lo.
 
-### 2. Base de Conhecimento
+## Como funciona
 
-Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alimentar seu agente:
+Streamlit (interface de chat) + Ollama (LLM local, sem API paga) + os JSONs de
+`data/` injetados no system prompt + camada de validação. Arquitetura completa
+com diagrama em [`docs/01`](./docs/01-documentacao-agente.md).
 
-| Arquivo | Formato | Descrição |
-|---------|---------|-----------|
-| `transacoes.csv` | CSV | Histórico de transações do cliente |
-| `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores |
-| `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
-| `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
+```bash
+pip install -r src/requirements.txt
+ollama pull llama3.1:8b
+streamlit run src/app.py
+```
 
-Você pode adaptar ou expandir esses dados conforme seu caso de uso.
+Passo a passo completo (incluindo instalar o Ollama): [`src/README.md`](./src/README.md)
 
-📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
+## As 6 etapas do desafio
 
----
+| Etapa | Entrega | Status |
+|-------|---------|--------|
+| 1. Documentação do agente | [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md) | ✅ |
+| 2. Base de conhecimento | [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md) | ✅ |
+| 3. Prompts do agente | [`docs/03-prompts.md`](./docs/03-prompts.md) | ✅ |
+| 4. Aplicação funcional | [`src/app.py`](./src/app.py) | ✅ |
+| 5. Avaliação e métricas | [`docs/04-metricas.md`](./docs/04-metricas.md) | 🔜 |
+| 6. Pitch | [`docs/05-pitch.md`](./docs/05-pitch.md) | 🔜 |
 
-### 3. Prompts do Agente
-
-Documente os prompts que definem o comportamento do seu agente:
-
-- **System Prompt:** Instruções gerais de comportamento e restrições
-- **Exemplos de Interação:** Cenários de uso com entrada e saída esperada
-- **Tratamento de Edge Cases:** Como o agente lida com situações limite
-
-📄 **Template:** [`docs/03-prompts.md`](./docs/03-prompts.md)
-
----
-
-### 4. Aplicação Funcional
-
-Desenvolva um **protótipo funcional** do seu agente:
-
-- Chatbot interativo (sugestão: Streamlit, Gradio ou similar)
-- Integração com LLM (via API ou modelo local)
-- Conexão com a base de conhecimento
-
-📁 **Pasta:** [`src/`](./src/)
-
----
-
-### 5. Avaliação e Métricas
-
-Descreva como você avalia a qualidade do seu agente:
-
-**Métricas Sugeridas:**
-- Precisão/assertividade das respostas
-- Taxa de respostas seguras (sem alucinações)
-- Coerência com o perfil do cliente
-
-📄 **Template:** [`docs/04-metricas.md`](./docs/04-metricas.md)
-
----
-
-### 6. Pitch
-
-Grave um **pitch de 3 minutos** (estilo elevador) apresentando:
-
-- Qual problema seu agente resolve?
-- Como ele funciona na prática?
-- Por que essa solução é inovadora?
-
-📄 **Template:** [`docs/05-pitch.md`](./docs/05-pitch.md)
-
----
-
-## Ferramentas Sugeridas
-
-Todas as ferramentas abaixo possuem versões gratuitas:
-
-| Categoria | Ferramentas |
-|-----------|-------------|
-| **LLMs** | [ChatGPT](https://chat.openai.com/), [Copilot](https://copilot.microsoft.com/), [Gemini](https://gemini.google.com/), [Claude](https://claude.ai/), [Ollama](https://ollama.ai/) |
-| **Desenvolvimento** | [Streamlit](https://streamlit.io/), [Gradio](https://www.gradio.app/), [Google Colab](https://colab.research.google.com/) |
-| **Orquestração** | [LangChain](https://www.langchain.com/), [LangFlow](https://www.langflow.org/), [CrewAI](https://www.crewai.com/) |
-| **Diagramas** | [Mermaid](https://mermaid.js.org/), [Draw.io](https://app.diagrams.net/), [Excalidraw](https://excalidraw.com/) |
-
----
-
-## Estrutura do Repositório
+## Estrutura do repositório
 
 ```
-📁 lab-agente-financeiro/
-│
-├── 📄 README.md
-│
-├── 📁 data/                          # Dados mockados para o agente
-│   ├── historico_atendimento.csv     # Histórico de atendimentos (CSV)
-│   ├── perfil_investidor.json        # Perfil do cliente (JSON)
-│   ├── produtos_financeiros.json     # Produtos disponíveis (JSON)
-│   └── transacoes.csv                # Histórico de transações (CSV)
-│
-├── 📁 docs/                          # Documentação do projeto
-│   ├── 01-documentacao-agente.md     # Caso de uso e arquitetura
-│   ├── 02-base-conhecimento.md       # Estratégia de dados
-│   ├── 03-prompts.md                 # Engenharia de prompts
-│   ├── 04-metricas.md                # Avaliação e métricas
-│   └── 05-pitch.md                   # Roteiro do pitch
-│
-├── 📁 src/                           # Código da aplicação
-│   └── app.py                        # (exemplo de estrutura)
-│
-├── 📁 assets/                        # Imagens e diagramas
-│   └── ...
-│
-└── 📁 examples/                      # Referências e exemplos
-    └── README.md
+├── data/       # Base de conhecimento (perfil do cliente + catálogo de produtos)
+├── docs/       # Documentação das etapas do desafio
+├── src/        # Aplicação (Streamlit + Ollama)
+└── assets/     # Materiais de apoio
 ```
 
 ---
 
-## Dicas Finais
-
-1. **Comece pelo prompt:** Um bom system prompt é a base de um agente eficaz
-2. **Use os dados mockados:** Eles garantem consistência e evitam problemas com dados sensíveis
-3. **Foque na segurança:** No setor financeiro, evitar alucinações é crítico
-4. **Teste cenários reais:** Simule perguntas que um cliente faria de verdade
-5. **Seja direto no pitch:** 3 minutos passam rápido, vá ao ponto
+Feito por [@rnmenzs](https://github.com/rnmenzs) sobre o
+[repositório base](https://github.com/digitalinnovationone/dio-lab-bia-do-futuro)
+da [DIO](https://www.dio.me/).
