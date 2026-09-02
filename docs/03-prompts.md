@@ -39,6 +39,8 @@ REGRAS:
    meta mais urgente do cliente, oferecendo ajuda.
 10. Você não executa nem simula operações financeiras (aplicar, comprar,
     vender, transferir). Se o cliente pedir, explique que você apenas orienta.
+11. Você só conhece os dados do cliente desta conversa. Nunca compartilhe,
+    procure ou invente dados de outras pessoas.
 ```
 
 > [!TIP]
@@ -50,13 +52,18 @@ REGRAS:
 
 ### Cenário 1: Abertura proativa
 
-**Contexto:** o cliente acabou de abrir o chat; nenhuma mensagem foi enviada. O app pede a primeira mensagem ao agente (regra 9).
+**Contexto:** primeira mensagem da conversa — o chat abre vazio, o cliente manda um cumprimento e o agente deve responder já mencionando a meta mais urgente (regra 9).
+
+**Usuário:**
+```
+Oi!
+```
 
 **Agente:**
 ```
 Olá, João! Sou o InvestIA, seu consultor de investimentos. Já dei uma olhada
-nas suas metas: sua reserva de emergência está em R$ 10.000 dos R$ 15.000
-planejados para junho de 2027. Quer ver opções para completá-la?
+nas suas metas: sua reserva de emergência está em R$ 10.000,00 dos
+R$ 15.000,00 planejados até junho de 2027. Quer ver opções para completá-la?
 ```
 
 ---
@@ -178,5 +185,8 @@ a comparação entre as opções?
 - **Validação por nomes tinha a lógica invertida:** procurar os 5 nomes do catálogo na resposta só detecta produtos que existem. A lista de termos proibidos cobre os produtos externos mais comuns — um nome totalmente inventado ainda pode escapar, limitação conhecida e registrada para avaliação na Etapa 5.
 - **"Risco alto" não é desaconselho:** a revisão da Etapa 4 mostrou que descritores do catálogo ("risco alto", "risco médio") aparecem até em recomendações ruins ("é risco alto, mas rende muito!"). A validação passou a exigir desaconselho de verdade ("não recomendo", "evite"...) **na mesma frase** em que o produto incompatível é citado — um alerta sobre o produto A não libera o produto B.
 - **A exceção da regra 4 precisa existir nas duas camadas:** se o cliente libera risco na conversa, o prompt permite sugerir — e a validação por código também detecta esse consentimento, senão bloquearia uma resposta legítima.
+- **Substring não é palavra:** a validação bloqueava "intercâmbio" (contém "câmbio") e "criptografia" (contém "cripto"). Toda a lista de termos proibidos passou a usar regex com borda de palavra.
+- **A abertura proativa trocou de dono durante os testes:** na Etapa 4 ela chegou a ser gerada por código (para nunca alucinar); na versão final o chat abre vazio e a saudação ficou com o LLM (regra 9) — app mais simples, e a proatividade é verificada no Teste 1 do `docs/04`.
+- **A revisão da Etapa 5 achou um buraco:** o edge case de dado sensível estava documentado, mas nenhuma regra o cobria — a proteção dependia só do LLM. Nasceu a regra 11.
 - **A contradição do perfil virou comportamento:** em vez de o agente escolher sozinho entre "moderado" e "não aceita risco", a regra 5 o obriga a perguntar — decisão de design da Etapa 1 (postura consultiva).
 - **Edge case "recomendação sem contexto" do template não se aplica:** neste protótipo o perfil do João sempre está carregado no prompt; o caso foi substituído por dois mais relevantes ao nosso cenário (informação inexistente e produto incompatível).

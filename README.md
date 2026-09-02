@@ -21,7 +21,7 @@ por palpite.
 O **InvestIA** cruza o perfil e as metas do cliente com o catálogo de produtos
 ([`data/`](./data/)) e:
 
-1. **Antecipa** — abre a conversa apontando a meta mais urgente, antes da primeira pergunta;
+1. **Antecipa** — logo na primeira resposta, aponta a meta mais urgente do cliente;
 2. **Personaliza** — só sugere produtos do catálogo compatíveis com o perfil de risco, explicando o porquê;
 3. **Pergunta na dúvida** — detecta contradições no perfil do cliente e pergunta antes de recomendar.
 

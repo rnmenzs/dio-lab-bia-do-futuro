@@ -43,8 +43,9 @@ ollama serve
 streamlit run src/app.py
 ```
 
-O navegador abre em `http://localhost:8501`. O InvestIA envia a primeira
-mensagem sozinho (comportamento proativo) — depois é só conversar.
+O navegador abre em `http://localhost:8501`. Mande um "oi": a primeira
+resposta já vem com a saudação e a meta mais urgente do cliente
+(comportamento proativo, regra 9 do prompt).
 
 ## Testando os comportamentos documentados
 

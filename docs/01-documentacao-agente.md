@@ -12,7 +12,7 @@ Pessoa iniciante, com pouco patrimônio, que não sabe qual produto financeiro c
 
 O **InvestIA** cruza o perfil e as metas do cliente (`perfil_investidor.json`) com o catálogo de produtos (`produtos_financeiros.json`) e:
 
-1. **Antecipa**: abre a conversa apontando a meta mais urgente do cliente, antes mesmo da primeira pergunta.
+1. **Antecipa**: logo na primeira resposta, aponta a meta mais urgente do cliente — antes de ser perguntado sobre ela.
 2. **Personaliza**: só sugere produtos do catálogo compatíveis com o perfil de risco, explicando o porquê.
 3. **Pergunta na dúvida**: se os dados do cliente se contradizem (perfil "moderado", mas não aceita risco), pergunta antes de sugerir.
 
@@ -59,7 +59,7 @@ flowchart TD
     B --> A
 ```
 
-**Fluxo:** ao abrir o app, os dois JSONs de `data/` são carregados no system prompt e o agente envia a primeira mensagem sozinho, com base nas metas do cliente (comportamento proativo). A cada resposta do LLM, o código valida: uma lista de termos proibidos (poupança, COE, criptomoedas etc.) bloqueia produtos externos conhecidos; e produto do catálogo incompatível com o perfil só é aprovado se estiver sendo desaconselhado **na mesma frase** em que é citado — recomendação sem alerta é descartada (a menos que o cliente tenha liberado risco explicitamente na conversa). Resposta reprovada vira a mensagem de limitação.
+**Fluxo:** ao abrir o app, os dois JSONs de `data/` são carregados no system prompt; o chat começa vazio e, já na primeira resposta, o agente cumprimenta o cliente apontando a meta mais urgente (regra 9 do prompt — comportamento proativo). A cada resposta do LLM, o código valida: uma lista de termos proibidos (poupança, COE, criptomoedas etc.) bloqueia produtos externos conhecidos; e produto do catálogo incompatível com o perfil só é aprovado se estiver sendo desaconselhado **na mesma frase** em que é citado — recomendação sem alerta é descartada (a menos que o cliente tenha liberado risco explicitamente na conversa). Resposta reprovada vira a mensagem de limitação.
 
 ### Componentes
 

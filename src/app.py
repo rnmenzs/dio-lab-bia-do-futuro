@@ -181,35 +181,9 @@ REGRAS:
 9. Na primeira mensagem da conversa, cumprimente e mencione proativamente a
    meta mais urgente do cliente, oferecendo ajuda.
 10. Você não executa nem simula operações financeiras (aplicar, comprar,
-    vender, transferir). Se o cliente pedir, explique que você apenas orienta."""
-
-
-# ============ MENSAGEM INICIAL PROATIVA ============
-# O agente fala primeiro (docs/01). Gerada por código, não pelo LLM: a
-# abertura fica sempre correta e rastreável aos dados.
-
-
-def mensagem_inicial(perfil):
-    nome = perfil["nome"].split()[0]
-    # A meta mais urgente é a de MENOR prazo — não confie na ordem do JSON.
-    meta = min(perfil["metas"], key=lambda m: m["prazo"])
-    if "reserva" in meta["meta"].lower():
-        detalhe = (
-            f"sua reserva de emergência está em "
-            f"R$ {brl(perfil['reserva_emergencia_atual'])} dos "
-            f"R$ {brl(meta['valor_necessario'])} planejados até "
-            f"{formatar_prazo(meta['prazo'])}. Quer ver opções para completá-la?"
-        )
-    else:
-        detalhe = (
-            f'sua meta mais urgente é "{meta["meta"]}" — '
-            f"R$ {brl(meta['valor_necessario'])} até "
-            f"{formatar_prazo(meta['prazo'])}. Quer ver opções?"
-        )
-    return (
-        f"Olá, {nome}! Sou o InvestIA, seu consultor de investimentos. "
-        f"Já dei uma olhada nas suas metas: {detalhe}"
-    )
+    vender, transferir). Se o cliente pedir, explique que você apenas orienta.
+11. Você só conhece os dados do cliente desta conversa. Nunca compartilhe,
+    procure ou invente dados de outras pessoas."""
 
 
 # ============ VALIDAÇÃO ANTI-ALUCINAÇÃO ============
@@ -268,6 +242,14 @@ def perguntar(mensagens_da_conversa, system_prompt):
 
 # ============ INTERFACE (Streamlit) ============
 
+
+def exibir(role, texto):
+    """Mostra a mensagem no chat escapando o '$' — sem isso o markdown do
+    Streamlit trata 'R$ 10.000' como início de fórmula LaTeX e come o cifrão.
+    Só afeta a exibição; o texto guardado no histórico continua intacto."""
+    st.chat_message(role).write(texto.replace("$", "\\$"))
+
+
 st.set_page_config(page_title="InvestIA", page_icon="💰")
 st.title("💰 InvestIA")
 st.caption(
@@ -276,7 +258,8 @@ st.caption(
 )
 
 # O Streamlit re-executa o script inteiro a cada mensagem; o session_state
-# preserva a conversa. Na primeira execução, o agente já se apresenta.
+# preserva a conversa. O chat começa vazio: o agente só fala quando o
+# cliente manda a primeira mensagem (a saudação fica com o LLM, regra 9).
 if "mensagens" not in st.session_state:
     perfil, produtos = carregar_dados()
     st.session_state.perfil = perfil
@@ -284,16 +267,14 @@ if "mensagens" not in st.session_state:
     st.session_state.system_prompt = SYSTEM_PROMPT.replace(
         "{CONTEXTO}", montar_contexto(perfil, produtos)
     )
-    st.session_state.mensagens = [
-        {"role": "assistant", "content": mensagem_inicial(perfil)}
-    ]
+    st.session_state.mensagens = []
 
 for msg in st.session_state.mensagens:
-    st.chat_message(msg["role"]).write(msg["content"])
+    exibir(msg["role"], msg["content"])
 
 if pergunta := st.chat_input("Pergunte sobre seus investimentos..."):
     st.session_state.mensagens.append({"role": "user", "content": pergunta})
-    st.chat_message("user").write(pergunta)
+    exibir("user", pergunta)
 
     with st.spinner("Consultando seu perfil e o catálogo..."):
         try:
@@ -317,10 +298,10 @@ if pergunta := st.chat_input("Pergunte sobre seus investimentos..."):
     final = bruta if aprovada else MENSAGENS_LIMITACAO[tipo]
 
     st.session_state.mensagens.append({"role": "assistant", "content": final})
-    st.chat_message("assistant").write(final)
+    exibir("assistant", final)
 
     # Evidência para a Etapa 5: motivo e resposta descartada ficam visíveis.
     if not aprovada:
         with st.expander("🔍 Por que a resposta foi bloqueada?"):
             st.write(f"**Motivo:** {motivo}")
-            st.write(f"**Resposta descartada:** {bruta}")
+            st.write("**Resposta descartada:** " + bruta.replace("$", "\\$"))
