@@ -62,6 +62,18 @@ MARCADORES_DE_ALERTA = [
     "não indico", "nao indico", "não é indicado", "nao é indicado",
     "não combina", "nao combina", "cuidado", "alerta", "evite",
     "desaconselh", "incompatível", "incompativel",
+    # "adequado" negado — achado no roteiro do docs/04 (Teste 5): o LLM
+    # desaconselhou com "pode não ser o mais adequado" e era bloqueado.
+    "não é adequado", "nao é adequado", "não ser adequado", "nao ser adequado",
+    "não é o mais adequado", "nao é o mais adequado",
+    "não ser o mais adequado", "nao ser o mais adequado",
+    # "não (é/ser) a melhor" cobre escolha/opção/alternativa; "não posso
+    # recomendar/sugerir/indicar" é a recusa direta.
+    "não é a melhor", "nao é a melhor", "não ser a melhor", "nao ser a melhor",
+    "não posso recomendar", "nao posso recomendar",
+    "não posso sugerir", "nao posso sugerir",
+    "não posso indicar", "nao posso indicar",
+    "não atende", "nao atende", "não se alinha", "nao se alinha",
 ]
 
 # Como os produtos de risco médio/alto aparecem no texto (nome, apelido,
@@ -169,6 +181,9 @@ REGRAS:
    (poupança, COE, criptomoedas, ações individuais etc.).
 4. Respeite o risco: como o cliente não aceita risco, só sugira produtos de
    risco baixo — a menos que ele diga explicitamente o contrário na conversa.
+   Se precisar citar um produto de risco médio ou alto, desaconselhe-o NA
+   MESMA FRASE em que o nome aparece (ex: "o Fundo de Ações não é indicado
+   para você, pois tem risco alto").
 5. O perfil do cliente tem uma contradição (perfil "moderado", mas aceita
    risco: não). Antes da primeira recomendação, aponte isso e pergunte o que
    prevalece.

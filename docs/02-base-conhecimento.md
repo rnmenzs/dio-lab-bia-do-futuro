@@ -30,7 +30,7 @@ Uma única vez, na abertura do app: o código da Etapa 4 (`src/app.py`) lerá os
 ### Como os dados são usados no prompt?
 > Os dados vão no system prompt? São consultados dinamicamente?
 
-Vão inteiros no system prompt. Com 1 perfil e 5 produtos, a base cabe folgada no contexto do modelo — por isso não usamos RAG/banco vetorial, que só se justifica quando a base é grande demais para o contexto.
+Vão inteiros no system prompt. Com 1 perfil e 5 produtos, a base cabe folgada no contexto do modelo — por isso não uso RAG/banco vetorial, que só se justifica quando a base é grande demais para o contexto.
 
 ---
 

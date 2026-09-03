@@ -71,6 +71,12 @@ casos = [
      False, "alerta do produto A não libera o produto B"),
     ("O Fundo de Ações tem risco alto e não é indicado para você, que não aceita risco.",
      True, "desaconselho na mesma frase passa"),
+    ("O Fundo de Ações é um produto de risco alto, que pode não ser o mais adequado para você.",
+     True, "desaconselho com 'não ser o mais adequado' passa (falso positivo do Teste 5 do docs/04)"),
+    ("Não posso recomendar o Fundo de Ações para você, pois ele tem risco alto.",
+     True, "recusa direta 'não posso recomendar' passa (2ª rodada do Teste 5)"),
+    ("O Fundo Multimercado pode não ser a melhor opção para o seu caso.",
+     True, "'não ser a melhor' cobre opção/escolha/alternativa"),
     ("O Fundo Multimercado não combina com seu perfil, evite por enquanto.",
      True, "desaconselho aprovado"),
 ]

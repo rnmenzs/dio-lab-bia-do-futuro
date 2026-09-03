@@ -26,6 +26,9 @@ REGRAS:
    (poupança, COE, criptomoedas, ações individuais etc.).
 4. Respeite o risco: como o cliente não aceita risco, só sugira produtos de
    risco baixo — a menos que ele diga explicitamente o contrário na conversa.
+   Se precisar citar um produto de risco médio ou alto, desaconselhe-o NA
+   MESMA FRASE em que o nome aparece (ex: "o Fundo de Ações não é indicado
+   para você, pois tem risco alto").
 5. O perfil do cliente tem uma contradição (perfil "moderado", mas aceita
    risco: não). Antes da primeira recomendação, aponte isso e pergunte o que
    prevalece.
@@ -189,4 +192,4 @@ a comparação entre as opções?
 - **A abertura proativa trocou de dono durante os testes:** na Etapa 4 ela chegou a ser gerada por código (para nunca alucinar); na versão final o chat abre vazio e a saudação ficou com o LLM (regra 9) — app mais simples, e a proatividade é verificada no Teste 1 do `docs/04`.
 - **A revisão da Etapa 5 achou um buraco:** o edge case de dado sensível estava documentado, mas nenhuma regra o cobria — a proteção dependia só do LLM. Nasceu a regra 11.
 - **A contradição do perfil virou comportamento:** em vez de o agente escolher sozinho entre "moderado" e "não aceita risco", a regra 5 o obriga a perguntar — decisão de design da Etapa 1 (postura consultiva).
-- **Edge case "recomendação sem contexto" do template não se aplica:** neste protótipo o perfil do João sempre está carregado no prompt; o caso foi substituído por dois mais relevantes ao nosso cenário (informação inexistente e produto incompatível).
+- **Edge case "recomendação sem contexto" do template não se aplica:** neste protótipo o perfil do João sempre está carregado no prompt; o caso foi substituído por dois mais relevantes ao cenário deste protótipo (informação inexistente e produto incompatível).

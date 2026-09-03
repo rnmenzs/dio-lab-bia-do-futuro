@@ -47,8 +47,8 @@ dentro do limite de 3 minutos. Ensaie cronometrando.
 ### 4. Diferencial e Impacto (~25 seg)
 
 > O diferencial não é usar IA — é **não confiar cegamente nela**. A validação
-> é testada: quatorze casos automatizados, todos passando, nascidos de falhas
-> reais que encontramos e corrigimos. E o impacto: educação financeira
+> é testada: dezessete casos automatizados, todos passando, nascidos de falhas
+> reais que encontrei e corrigi. E o impacto: educação financeira
 > acessível, que explica em vez de empurrar produto — em modelo local, sem
 > custo de API e com os dados na máquina do cliente.
 
