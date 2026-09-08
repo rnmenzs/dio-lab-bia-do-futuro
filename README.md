@@ -51,8 +51,8 @@ Passo a passo completo (incluindo instalar o Ollama): [`src/README.md`](./src/RE
 | 2. Base de conhecimento | [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md) | ✅ |
 | 3. Prompts do agente | [`docs/03-prompts.md`](./docs/03-prompts.md) | ✅ |
 | 4. Aplicação funcional | [`src/app.py`](./src/app.py) | ✅ |
-| 5. Avaliação e métricas | [`docs/04-metricas.md`](./docs/04-metricas.md) | 🔜 |
-| 6. Pitch | [`docs/05-pitch.md`](./docs/05-pitch.md) | 🔜 |
+| 5. Avaliação e métricas | [`docs/04-metricas.md`](./docs/04-metricas.md) | ✅ |
+| 6. Pitch | [`docs/05-pitch.md`](./docs/05-pitch.md) | ✅ |
 
 ## Estrutura do repositório
 

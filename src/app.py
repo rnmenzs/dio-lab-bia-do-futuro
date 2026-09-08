@@ -158,7 +158,7 @@ CATÁLOGO DE PRODUTOS (única fonte permitida para sugestões)
 
 
 # ============ SYSTEM PROMPT ============
-# As 10 regras do docs/03; o {CONTEXTO} recebe o texto acima.
+# As 11 regras do docs/03; o {CONTEXTO} recebe o texto acima.
 
 SYSTEM_PROMPT = """Você é o InvestIA, um consultor virtual de investimentos para pessoas iniciantes.
 Seu objetivo é ajudar o cliente a escolher, entre os produtos do catálogo abaixo,

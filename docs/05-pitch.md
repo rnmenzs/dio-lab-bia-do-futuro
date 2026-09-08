@@ -1,8 +1,8 @@
 # Pitch (3 minutos) — InvestIA
 
-Roteiro escrito para ser **falado**: ~240 palavras faladas (≈1min40s a
-140–150 palavras/min) + 1 min de demonstração narrada ≈ 2min45s — com folga
-dentro do limite de 3 minutos. Ensaie cronometrando.
+Roteiro escrito para ser **falado**: ~250 palavras faladas (≈1min45s a
+140–150 palavras/min) + 1 min de demonstração narrada ≈ 2min50s — dentro
+do limite de 3 minutos. Ensaie cronometrando.
 
 ---
 
@@ -33,39 +33,38 @@ dentro do limite de 3 minutos. Ensaie cronometrando.
 
 ### 3. Demonstração (1 min — gravação de tela; acelere digitação e geração na edição)
 
-1. **(~15s) Abertura proativa** — mandar "oi".
-   Narração: *"Repara: eu só disse oi — e ele já aponta a meta da reserva."*
-2. **(~30s) Contradição** — perguntar "onde devo investir para completar
-   minha reserva?" e depois responder "prefiro não arriscar".
-   Narração: *"Ele não responde direto: viu que o perfil se contradiz e
-   perguntou. Escolhi segurança — e a sugestão vem só com risco baixo,
+1. **(~20s) Abertura proativa + contradição** — mandar "oi".
+   Narração: *"Repara: eu só disse oi — e ele já aponta a meta da reserva
+   e nota que meu perfil se contradiz: 'moderado', mas sem aceitar risco.
+   Em vez de decidir sozinho, ele pergunta."*
+2. **(~25s) Recomendação segura** — responder "prefiro não arriscar".
+   Narração: *"Escolhi segurança — e a sugestão vem só com risco baixo,
    citando o catálogo e deixando a decisão comigo."*
 3. **(~15s) Segurança** — perguntar "quanto está a taxa Selic hoje?".
    Narração: *"E a Selic de hoje? Ele admite que não sabe — não inventa
    número."*
 
-### 4. Diferencial e Impacto (~25 seg)
+### 4. Diferencial e Impacto (~30 seg)
 
-> O diferencial não é usar IA — é **não confiar cegamente nela**. A validação
-> é testada: dezessete casos automatizados, todos passando, nascidos de falhas
-> reais que encontrei e corrigi. E o impacto: educação financeira
-> acessível, que explica em vez de empurrar produto — em modelo local, sem
-> custo de API e com os dados na máquina do cliente.
+> Todo chatbot promete não alucinar — quase sempre, só no prompt. O InvestIA
+> assume que o modelo **vai** errar: cada resposta passa por uma validação de
+> código, determinística e testada — dezessete casos, todos passando,
+> nascidos de falhas reais que encontrei e corrigi. E o impacto: educação
+> financeira acessível, que explica em vez de empurrar produto — em modelo
+> local, sem custo de API e com os dados na máquina do cliente.
 
 ---
 
 ## Checklist do Pitch
 
-- [ ] Duração máxima de 3 minutos (ensaiar cronometrando!)
-- [ ] Problema claramente definido
-- [ ] Solução demonstrada na prática
-- [ ] Diferencial explicado
-- [ ] Áudio e vídeo com boa qualidade
+- [x] Duração máxima de 3 minutos (ensaiar cronometrando!)
+- [x] Problema claramente definido
+- [x] Solução demonstrada na prática
+- [x] Diferencial explicado
+- [x] Áudio e vídeo com boa qualidade
 
 ---
 
 ## Link do Vídeo
 
-> Cole aqui o link do seu pitch (YouTube, Loom, Google Drive, etc.)
-
-[Link do vídeo]
+[Assista ao pitch no Google Drive](https://drive.google.com/file/d/1dOXMH50vrJIZq82TAOGRGo93TUMcSOqy/view?usp=sharing)
